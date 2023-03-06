@@ -1,4 +1,4 @@
-const prompt = require('prompt-sync')();
+const prompt = require('prompt-sync')({sigint: true});
 
 const pokeType = ['Slimy', 'Deepsea', 'Purple', 'Grey', 'Red', 'Bigmouthed', 'Spotted', 'Rainbow', 'Electric', 'Golden'];
 const pokeEdition = ['Scaly', 'Finned', 'Eel-like', 'Bottom-dwelling', 'Shimmering', 'Razor-toothed', 'Sleek', 'Luminous', 'Agile', 'Feisty'];
@@ -61,16 +61,29 @@ function incrementTime(time) {
     let hour = parseInt(time.slice(0, 2));
     let minute = parseInt(time.slice(3));
 
-    if (minute === 0) {
-        minute = 30;
-    } else {
-        hour++;
-        minute = 0;
-    }
+    hour += 1;
+    minute = 0;
 
     if (hour > 12) {
         hour = 1;
     }
 
-    return hour.toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0') + ' ' + (hour < 12 ? 'am' : 'pm');
+    let hourString = '';
+    let minuteString = '';
+
+    if (hour < 10) {
+        hourString = '0' + hour;
+    } else {
+        hourString = '' + hour;
+    }
+
+    if (minute < 10) {
+        minuteString = '0' + minute;
+    } else {
+        minuteString = '' + minute;
+    }
+
+    return hourString + ':' + minuteString + (hour < 12 ? 'am' : 'pm');
 }
+  
+  
